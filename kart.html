@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang Saya | ordinary.u</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        body { padding-bottom: 80px; } 
+    </style>
+</head>
+<body>
+
+    <header class="main-header sticky-header">
+        <a href="index.html" class="logo-link">
+            <h1 class="logo">ordinary.u</h1>
+        </a>
+  <nav class="main-nav">
+            <ul class="nav-list" style="display: flex; align-items: center; gap: 20px; list-style: none;">
+                <li>
+                    <a href="kart.html" id="cart-link" class="nav-link">
+                        <i class="fa-solid fa-bag-shopping nav-icon"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" id="profile-link" class="nav-link" style="display: flex; align-items: center;">
+                        <div id="nav-avatar-container" style="width: 30px; height: 30px; border-radius: 50%; background: #eaeaea; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #333;">
+                            <i id="nav-avatar-icon" class="fa-solid fa-user" style="font-size: 14px; color: #333;"></i>
+                            <img id="nav-avatar-img" src="" alt="Profile" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="content-wrapper container">
+        
+        <h1 class="classy-heading-cart">Keranjang Saya</h1>
+        
+        <section class="cart-items-section">
+            <div id="cart-items-container">
+                <p style="text-align: center;">Memuat item...</p>
+            </div>
+        </section>
+        
+    </main>
+    
+    <div class="cart-footer-wrapper">
+        <div class="cart-total-summary">
+            <p>Total: <strong id="final-total-display">Rp 0</strong></p> 
+        </div>
+        <div class="cart-checkout-actions">
+            <button class="btn btn-voucher" id="open-voucher-modal">
+                <i class="fa-solid fa-tag"></i>
+            </button>
+            <button class="btn btn-checkout-sticky" id="checkout-btn">
+                CHECKOUT
+            </button>
+        </div>
+    </div>
+    <div id="voucher-modal" class="voucher-modal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3>Gunakan Voucher Diskon</h3>
+        
+        <div class="voucher-input-group">
+            <input type="text" id="voucher-input" placeholder="Masukkan Kode Voucher">
+            <button id="apply-voucher-btn">Terapkan</button>
+        </div>
+        
+        <p id="voucher-message" style="margin-bottom: 15px;"></p>
+        
+        <h4>Voucher Tersedia:</h4>
+        <ul style="list-style: disc; margin-left: 20px;">
+            <li>HEMAT20 (Diskon 20%)</li>
+            <li>COBA10 (Diskon 10%)</li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

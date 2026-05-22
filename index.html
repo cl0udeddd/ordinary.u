@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extraodinary.u</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<header class="main-header sticky-header">
+        <a href="index.html" class="logo-link">
+            <h1 class="logo">ordinary.u</h1>
+        </a>
+        
+        <form class="search-form" action="pr.html" method="GET">
+            <input type="text" name="q" placeholder="Cari produk..." class="search-input">
+            <button type="submit" class="search-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+
+        <nav class="main-nav">
+            <ul class="nav-list" style="display: flex; align-items: center; gap: 20px; list-style: none;">
+                <li>
+                    <a href="kart.html" id="cart-link" class="nav-link">
+                        <i class="fa-solid fa-bag-shopping nav-icon"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" id="profile-link" class="nav-link" style="display: flex; align-items: center;">
+                        <div id="nav-avatar-container" style="width: 30px; height: 30px; border-radius: 50%; background: #eaeaea; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #333;">
+                            <i id="nav-avatar-icon" class="fa-solid fa-user" style="font-size: 14px; color: #333;"></i>
+                            <img id="nav-avatar-img" src="" alt="Profile" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <button class="hamburger-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </header>
+
+    <main class="content-wrapper"> 
+        <section class="slider-section">
+            <div class="hero-overlay"> 
+                <div class="container hero-content">
+                    <h2 class="classy-heading">Elegance beyond simplicity.</h2>
+                    <p>Jelajahi produk pilihan yang dirancang untuk kesederhanaan dan kualitas.</p>
+                    <a href="pr.html" class="btn btn-black">Lihat Semua Produk</a>
+                </div>
+            </div>
+            
+            <div class="slider-container">
+                <div class="slide-wrapper">
+                    <div class="slide"><img src="img/1.jpeg" alt="Banner 1"></div>
+                    <div class="slide"><img src="img/2.jpeg" alt="Banner 2"></div>
+                    <div class="slide"><img src="img/3.jpeg" alt="Banner 3"></div>
+                </div>
+                <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </section>
+        
+        <section id="game-center" class="container section-gap" style="text-align: center;">
+            <h2 class="classy-heading">Menangkan Voucher Diskon!</h2>
+            <p style="margin-bottom: 35px;">Pilih salah satu mini-game di bawah ini untuk memenangkan voucher spesial!</p>
+            
+            <div id="game-selection-area" style="background: #FFFFFF; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); display: flex; justify-content: center; gap: 25px; flex-wrap: wrap;">
+                <button id="open-memory-match-btn" class="game-icon-btn"><i class="fa-solid fa-clone"></i> <span>Memory Match</span></button>
+                <button id="open-math-quiz-btn" class="game-icon-btn"><i class="fa-solid fa-calculator"></i> <span>Math Quiz</span></button>
+            </div>
+        </section>
+        
+        <section id="produk" class="product-grid container section-gap"> 
+            <h2 class="classy-heading" style="grid-column: 1 / -1; margin-bottom: 30px; text-align: center;">Produk Pilihan Kami</h2>
+            </section>
+    </main>
+    
+    <div id="memory-modal" class="modal-game"><div class="game-modal-content"><span class="game-close-btn">&times;</span><h3>Memory Match</h3><div id="memory-game-area"><p id="status-message">Temukan pasangan!</p><button id="start-memory-btn" class="btn btn-black">Mulai!</button><div id="memory-grid"></div><div id="game-result-container" style="display:none;"><p id="voucher-code-display"></p><button id="copy-voucher-btn">Salin</button></div></div></div></div>
+    
+    <div id="math-modal" class="modal-game"><div class="game-modal-content"><span class="game-close-btn">&times;</span><h3>Math Quiz</h3><div id="quiz-area"><p id="math-question"></p><input type="number" id="math-answer"><button id="submit-answer-btn">Jawab</button></div><div id="math-results" style="display:none;"><p id="math-message"></p><button id="next-math-btn">Main Lagi</button></div></div></div>
+
+    <footer class="main-footer"><p>Extraodinary.co &copy; 2026</p></footer>
+    <script src="script.js"></script>
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+    
+    <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+        <div class="drawer-header">
+            <span class="drawer-logo">ordinary.u</span>
+            <button class="drawer-close-btn" onclick="toggleMobileMenu()">&times;</button>
+        </div>
+
+        <div class="drawer-body">
+            <form class="mobile-search-form" action="pr.html" method="GET">
+                <input type="text" name="q" placeholder="Cari produk minimalis..." class="mobile-search-input">
+                <button type="submit" class="mobile-search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+
+            <ul class="mobile-nav-list">
+                <li>
+                    <a href="index.html" class="mobile-nav-item">
+                        <span>Beranda</span>
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="pr.html" class="mobile-nav-item">
+                        <span>Katalog Produk</span>
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="kart.html" class="mobile-nav-item">
+                        <span style="display: flex; align-items: center; gap: 10px;">
+                            <i class="fa-solid fa-bag-shopping"></i> Keranjang Belanja
+                        </span>
+                        <span class="mobile-badge" id="mobile-cart-count">0</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="mobile-nav-item mobile-profile-box">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div id="mobile-avatar-container" style="width: 36px; height: 36px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #111;">
+                                <i id="mobile-avatar-icon" class="fa-solid fa-user" style="font-size: 14px; color: #111;"></i>
+                                <img id="mobile-avatar-img" src="" alt="Profile" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div>
+                                <p style="font-size: 14px; font-weight: 600; margin: 0; color: #111;" id="mobile-username-display">Akun Saya</p>
+                                <p style="font-size: 11px; color: #777; margin: 0;">Lihat detail & toko profil</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="drawer-footer">
+            <p>Extraodinary.co &copy; 2026</p>
+        </div>
+    </div>
+</body>
+</html>

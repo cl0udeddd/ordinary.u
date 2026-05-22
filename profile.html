@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - ordinary.u</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* ===================================================
+           CSS KHUSUS HALAMAN PROFIL (PREMIUM MONOCHROME)
+           =================================================== */
+        
+        body {
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Nav Spacer: Diberi 95px agar wallpaper fix berjarak aman dari navbar */
+        .profile-container {
+            max-width: 900px;
+            margin: 95px auto; 
+            padding: 0 20px;
+        }
+
+        /* Wrapper Banner Sampul */
+        .header-banner-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f5f5f5;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+        }
+
+        .cover-photo {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        /* Tombol Edit Sampul (Kanan Atas - Transparansi 50% saat Hover Banner) */
+        .cover-edit-trigger {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            color: #111;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            z-index: 20;
+        }
+
+        /* Tombol Edit Profil (Kiri Atas Sampul - Dekat Avatar area) */
+        .avatar-edit-trigger {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            color: #111;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            z-index: 20;
+        }
+
+        /* Trigger muncul barengan pas banner utama disorot */
+        .header-banner-wrapper:hover .cover-edit-trigger,
+        .header-banner-wrapper:hover .avatar-edit-trigger {
+            opacity: 0.5;
+            transform: translateY(0);
+        }
+
+        .header-banner-wrapper:hover .cover-edit-trigger:hover,
+        .header-banner-wrapper:hover .avatar-edit-trigger:hover {
+            opacity: 1;
+            background: #ffffff;
+        }
+
+        /* Kontainer Avatar Bulat Besar Utuh */
+        .avatar-container-fixed {
+            position: absolute;
+            bottom: -55px; 
+            left: 22px;
+            z-index: 30;
+        }
+
+        .avatar-circle {
+            width: 160px; 
+            height: 160px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 4px solid #ffffff;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-circle i {
+            font-size: 40px;
+            color: #ddd;
+        }
+
+        /* Overlay kamera pas avatar di-hover langsung */
+        .upload-btn-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .avatar-circle:hover .upload-btn-overlay {
+            opacity: 1;
+        }
+
+/* Tata Letak Info Nama & Keterangan Akun (Dipasang Padding-Left sejajar Foto Profil) */
+        .profile-meta-block {
+            margin-top: 75px; /* Ditambah space-nya biar gak numpuk sama lingkaran besar */
+            padding: 0 10px 0 45px; /* Ditambah padding-left 45px agar nama lurus persis di bawah gambar profil */
+            text-align: left;
+        }
+
+        .profile-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #111;
+            letter-spacing: -0.5px;
+            margin: 0 0 15px 0; /* Jarak ke bawah bionya */
+            display: inline-block;
+        }
+
+        /* Desain Keterangan Bio Akun */
+        .profile-bio-wrapper {
+            position: relative;
+            padding-left: 15px;
+            border-left: 2px solid #111;
+        }
+
+        .profile-bio {
+            font-size: 13.5px;
+            color: #555;
+            max-width: 720px;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        /* Area Form Edit Data */
+        .bio-input-area {
+            margin-top: 25px;
+            background: #fafafa;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+
+        .custom-textarea {
+            width: 100%;
+            height: 90px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13.5px;
+            resize: none;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .custom-textarea:focus {
+            border-color: #111;
+        }
+
+        /* Bagian Daftar Produk */
+        .shop-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            margin: 60px 0 20px 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+            color: #111;
+            padding-left: 26px;
+        }
+
+        .empty-shop-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: #fafafa;
+            border: 1px dashed #ddd;
+            border-radius: 12px;
+            color: #888;
+            margin: 0 26px;
+        }
+
+        .empty-shop-state i {
+            font-size: 36px;
+            color: #bbb;
+            margin-bottom: 15px;
+        }
+
+        .action-link {
+            color: #111;
+            text-decoration: underline;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header sticky-header">
+        <a href="index.html" class="logo-link">
+            <h1 class="logo">ordinary.u</h1>
+        </a>
+        <nav class="main-nav">
+            <ul class="nav-list" style="display: flex; align-items: center; gap: 20px; list-style: none; margin: 0; padding: 0;">
+                <li><a href="index.html" class="nav-link" style="font-size: 14px; font-weight: 600; color: #111;">Beranda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="profile-container">
+        
+        <div style="position: relative; margin-bottom: 30px;">
+            <div class="header-banner-wrapper">
+                <img id="cover-photo-img" class="cover-photo" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000" alt="Wallpaper">
+                
+                <button class="avatar-edit-trigger" onclick="toggleEditMode()" title="Edit Nama & Bio">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+
+                <label for="cover-uploader" class="cover-edit-trigger" title="Ubah Wallpaper" style="margin: 0; padding: 0;">
+                    <i class="fa-solid fa-image" style="cursor: pointer;"></i>
+                </label>
+                <input type="file" id="cover-uploader" accept="image/*" style="display: none;">
+            </div>
+            
+            <div class="avatar-container-fixed">
+                <div class="avatar-circle">
+                    <i id="profile-icon-placeholder" class="fa-solid fa-user"></i>
+                    <img id="profile-avatar-img" src="" alt="Avatar" style="display: none;">
+                    
+                    <label for="avatar-uploader" class="upload-btn-overlay">
+                        <i class="fa-solid fa-camera"></i>
+                    </label>
+                    <input type="file" id="avatar-uploader" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-meta-block">
+            <h2 class="profile-name" id="display-name">siti</h2>
+            <div class="profile-bio-wrapper">
+                <p class="profile-bio" id="display-bio">Selamat datang di toko resmi saya. Menghadirkan pakaian minimalis berselera tinggi dengan palet warna earth-tone dan potongan estetik modern.</p>
+            </div>
+
+            <div id="edit-form-area" class="bio-input-area" style="display: none;">
+                <div style="margin-bottom: 16px;">
+                    <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #222;">Nama Akun</label>
+                    <input type="text" id="input-name" placeholder="Nama Akun" style="padding: 12px; width: 100%; border: 1px solid #ddd; border-radius: 6px; font-family: 'Poppins', sans-serif; margin-top: 6px; outline: none; font-size: 13.5px; box-sizing: border-box;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #222;">Deskripsi / Bio Akun</label>
+                    <textarea id="input-bio" class="custom-textarea" style="margin-top: 6px;" placeholder="Tulis deskripsi toko atau akunmu di sini..."></textarea>
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button class="btn btn-outline" style="padding: 8px 18px; font-size: 12px; border-color: #ccc; color: #555;" onclick="toggleEditMode()">Batal</button>
+                    <button class="btn btn-black" style="padding: 8px 18px; font-size: 12px;" onclick="saveProfileData()">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="shop-section-title">Produk yang Dijual</h3>
+        
+        <div id="products-shop-list">
+            <div class="empty-shop-state">
+                <i class="fa-solid fa-box-open"></i>
+                <p style="font-size: 14px; font-weight: 600; color: #222; margin: 0 0 4px 0;">Belum Ada Produk yang Dijual</p>
+                <p style="font-size: 12.5px; color: #999; margin: 0 0 16px 0;">Kamu belum mendaftarkan item atau produk fashion apa pun di akun ini.</p>
+                <span class="action-link" onclick="alert('Fitur upload produk baru akan segera hadir!')">+ Mulai Jual Produk</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer" style="margin-top: 100px;">
+        <p>Extraodinary.co &copy; 2026</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadProfileData();
+
+            // Handler Perubahan Foto Profil (Avatar)
+            const avatarUploader = document.getElementById('avatar-uploader');
+            avatarUploader.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const base64Image = e.target.result;
+                        localStorage.setItem('userAvatar', base64Image);
+                        renderAvatar(base64Image);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Handler Perubahan Gambar Wallpaper Sampul
+            const coverUploader = document.getElementById('cover-uploader');
+            coverUploader.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const base64Cover = e.target.result;
+                        localStorage.setItem('userCoverWallpaper', base64Cover);
+                        document.getElementById('cover-photo-img').src = base64Cover;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        function renderAvatar(imgData) {
+            const imgEl = document.getElementById('profile-avatar-img');
+            const iconEl = document.getElementById('profile-icon-placeholder');
+            if (imgData) {
+                imgEl.src = imgData;
+                imgEl.style.display = 'block';
+                iconEl.style.display = 'none';
+            } else {
+                imgEl.style.display = 'none';
+                iconEl.style.display = 'block';
+            }
+        }
+
+        function loadProfileData() {
+            // Load Avatar
+            const savedAvatar = localStorage.getItem('userAvatar');
+            renderAvatar(savedAvatar);
+
+            // Load Wallpaper Sampul
+            const savedCover = localStorage.getItem('userCoverWallpaper');
+            if (savedCover) {
+                document.getElementById('cover-photo-img').src = savedCover;
+            }
+
+            // Load Teks Nama & Bio
+            const savedName = localStorage.getItem('userName') || "siti";
+            const savedBio = localStorage.getItem('userBio') || "Selamat datang di toko resmi saya. Menghadirkan pakaian minimalis berselera tinggi dengan palet warna earth-tone dan potongan estetik modern.";
+
+            document.getElementById('display-name').innerText = savedName;
+            document.getElementById('display-bio').innerText = savedBio;
+            document.getElementById('input-name').value = savedName;
+            document.getElementById('input-bio').value = savedBio;
+        }
+
+        function toggleEditMode() {
+            const form = document.getElementById('edit-form-area');
+            if (form.style.display === 'block') {
+                form.style.display = 'none';
+            } else {
+                form.style.display = 'block';
+                form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function saveProfileData() {
+            const newName = document.getElementById('input-name').value.trim();
+            const newBio = document.getElementById('input-bio').value.trim();
+
+            if(newName === "") {
+                alert("Nama tidak boleh kosong!");
+                return;
+            }
+
+            localStorage.setItem('userName', newName);
+            localStorage.setItem('userBio', newBio);
+
+            loadProfileData();
+            toggleEditMode();
+        }
+        
+    </script>
+</body>
+</html>
